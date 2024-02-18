@@ -1,0 +1,15 @@
+# Mac OS
+.DS_Store
+
+# CMake
+/cmake-build-debug/
+/cmake-build-release/
+
+# Visual Studio Code
+.vscode/
+
+# Xcode
+*.xcworkspace
+
+# JetBrains
+.idea/
