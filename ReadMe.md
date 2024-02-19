@@ -44,12 +44,36 @@ auto main(int argc, char* argv[]) -> int {
 
 ## Pre defined commands
 
-| Command    | Option            | Requiered Arguments |
-|:----------:|:------------------|:--------------------:|
-| Quit       | `--quit`,    `-q` |         —           |
-| Version    | `--version`, `-v` |         —           |
-| Verbose    | `--verbose`, `-b` |                     |
+The following commands are defined by default.
+
+| Command    | Option            | Requiered Arguments                         |
+|:----------:|:------------------|:-------------------------------------------:|
+| Quit       | `--quit`,    `-q` |         —                                   |
+| Version    | `--version`, `-v` |         —                                   |
+| Verbose    | `--verbose`, `-V` |                                             |
 | Help       | `--help`,    `-h` | Used the description off all given commands |
+|    |  |                                             |
+|    |  |                                             |
+|    |  |                                             |
+|    |  |                                             |
+
+## Multi & combind option execution
+
+All options there are defined as Commands and you use in a consol command,
+will be exectuted in order or together if there combinded action defined.
+
+## Up to 56 self defined Commands
+
+Inside all commands toggle a bit of an unsigned integer with 64 bits (8 byte),
+the last byte is reserved for pre defined commands.
+So you can define up to 56 Commands and for all of these combinded actions if you want.
+The list of arguments is untouched of any restrictions.
+
+## Alias Commands
+
+You can define alias command for an existing one to improve the user experience of your CLI Tool
+
+
 
 
 
