@@ -44,12 +44,12 @@ auto main(int argc, char* argv[]) -> int {
 
 ## Pre defined commands
 
-| Command    | Option            |
-|:----------:|:-----------------:|
-| Quit       | `--quit`,    `-q` |
-| Version    | `--version`, `-v` |
-| Verbose    | `--verbose`, `-b` |
-| Help       | `--help`,    `-h` |
+| Command    | Option            | Requiered Arguments |
+|:----------:|:------------------|:--------------------:|
+| Quit       | `--quit`,    `-q` |         —           |
+| Version    | `--version`, `-v` |         —           |
+| Verbose    | `--verbose`, `-b` |                     |
+| Help       | `--help`,    `-h` | Used the description off all given commands |
 
 
 
