@@ -41,3 +41,17 @@ auto main(int argc, char* argv[]) -> int {
     return 0;
 }
 ```
+
+## Pre defined commands
+
+| Command    | Option            |
+|:----------:|:-----------------:|
+| Quit       | `--quit`,    `-q` |
+| Version    | `--version`, `-v` |
+| Verbose    | `--verbose`, `-b` |
+| Help       | `--help`,    `-h` |
+
+
+
+
+
