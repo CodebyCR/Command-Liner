@@ -1,8 +1,6 @@
 # Command-Liner
 
-## Description
-
-This handy header-only library helps you to make your libraries to command-line applications.
+###### _A handy header-only library that helps you to make your libraries to command-line applications._
 
 ## Example usage
 
