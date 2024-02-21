@@ -44,16 +44,13 @@ auto main(int argc, char** argv) -> int {
     // Program arguments as a vector of strings.
     const auto args = std::vector<std::string>(argv, argv + argc);
 
-    for(auto const& arg: args) {
-        std::cout << arg << std::endl;
-    }
-
     // CommandHandler
     CommandHandler commandHandler(args);
     commandHandler.add(helpCommand);
     commandHandler.add(versionCommand);
     commandHandler.add(manualCommand);
     commandHandler.add(exitCommand);
+
     commandHandler.execute();
 
 

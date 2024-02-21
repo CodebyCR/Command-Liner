@@ -8,7 +8,7 @@
 #include <string>
 
 struct Command {
-    std::uint32_t id;
+    std::uint64_t id;
     std::string verboseName;
     std::string quickName;
     std::string description;
