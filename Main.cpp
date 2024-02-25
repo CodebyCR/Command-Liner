@@ -1,36 +1,23 @@
 
 #include "src/Command.hpp"
 #include "src/CommandHandler.hpp"
+#include "ReservedCommands.hpp"
 #include <iostream>
 
 
 auto main(int argc, char** argv) -> int {
+
+    /// Alias for quit command
     const Command exitCommand{
-            .id = 0,
+            .id = ReservedCommands::QUIT_ID,
             .verboseName = "--exit",
             .quickName = "-e",
-            .description = "Exits the program.",
+            .description = "Exits the program. The same as --quit / -q.",
             .function = [](std::vector<std::string> const& args) {
-                std::cout << "This is an exit command." << std::endl;
+                std::cout << "This command also quit the program." << std::endl;
+                exit(0);
             }};
 
-    const Command helpCommand{
-            .id = 2,
-            .verboseName = "--help",
-            .quickName = "-h",
-            .description = "Gives you a helpful description about the command.",
-            .function = [](std::vector<std::string> const& args) {
-                std::cout << "This is a help command." << std::endl;
-            }};
-
-    const Command versionCommand{
-            .id = 4,
-            .verboseName = "--version",
-            .quickName = "-v",
-            .description = "Gives you the version of the program.",
-            .function = [](std::vector<std::string> const& args) {
-                std::cout << "This is a version command." << std::endl;
-            }};
 
     const Command manualCommand{
             .id = 8,
@@ -46,8 +33,6 @@ auto main(int argc, char** argv) -> int {
 
     // CommandHandler
     CommandHandler commandHandler(args);
-    commandHandler.add(helpCommand);
-    commandHandler.add(versionCommand);
     commandHandler.add(manualCommand);
     commandHandler.add(exitCommand);
 

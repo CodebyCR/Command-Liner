@@ -1,7 +1,9 @@
 
 set(COMMAND_SOURCES
         "Command.hpp"
+        "ReservedCommands.hpp"
         "CommandHandler.hpp"
+
 )
 
 add_library(${COMMAND_LIBRARY} INTERFACE ${COMMAND_SOURCES} )

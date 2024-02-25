@@ -9,8 +9,8 @@
 
 struct Command {
     std::uint64_t id;
-    std::string verboseName;
-    std::string quickName;
-    std::string description;
+    std::string_view verboseName;
+    std::string_view quickName;
+    std::string_view description;
     std::function<void(std::vector<std::string>)> function;
 };
