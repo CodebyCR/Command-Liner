@@ -55,8 +55,8 @@ private:
 
     /// Check if the command is a combined quick command like -hv or -Vvh
     auto isCombinedQuickCommand(std::string_view command) -> bool {
-        bool dontFoundDoubleDash = command.find("--");
-        bool moreThanTwoChars = std::ranges::size(command) > 2;
+        const bool dontFoundDoubleDash = command.find("--");
+        const bool moreThanTwoChars = std::ranges::size(command) > 2;
         return dontFoundDoubleDash && moreThanTwoChars;
     }
 
