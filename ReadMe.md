@@ -72,3 +72,11 @@ The list of arguments is untouched of any restrictions.
 ## Alias Commands
 
 You can define alias command for an existing one to improve the user experience of your CLI Tool.
+
+## Command Line Syntax
+
+The syntax of the command line is as follows:
+
+```bash
+$ ./myProgram [options] [arguments]
+```
