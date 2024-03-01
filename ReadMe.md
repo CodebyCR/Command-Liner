@@ -4,7 +4,7 @@
     <img height="28" src="https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white" alt="Logo" >
     <img height="28" src="https://img.shields.io/badge/CMake-064F8C?style=for-the-badge&logo=cmake&logoColor=white" alt="Logo">
     <img height="28" src="https://img.shields.io/github/license/CodeByCR/TimedAction?style=for-the-badge" alt="Logo">
-    <h6><em>A handy header-only library that helps you to make your libraries to command-line applications.</em></h6>
+    <h4><em>A handy header-only library that helps you to make your libraries to command-line applications.</em></h4>
 </div>
 
 ## Example usage
