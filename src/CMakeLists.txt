@@ -1,7 +1,7 @@
 
 set(COMMAND_SOURCES
-        "Command.hpp"
-        "ReservedCommands.hpp"
+        "Option.hpp"
+        "ReservedOptions.hpp"
         "CommandHandler.hpp"
 
 )

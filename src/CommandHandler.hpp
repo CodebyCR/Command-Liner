@@ -34,6 +34,7 @@ private:
 
     auto executeInOrder() -> void {
         auto filteredArgs = getFilteredArgs();
+
         for(auto const& opt: options) {
             if(opt.id & totalOption) {
                 opt.function(filteredArgs);
@@ -136,7 +137,7 @@ private:
         }
     }
 
-    auto addPredefinedoptions() -> void {
+    auto addPredefinedOptions() -> void {
         const Option quitOption{
                 .id = ReservedOptions::QUIT_ID,
                 .verboseName = "--quit",
@@ -178,7 +179,7 @@ private:
 
 public:
     explicit CommandHandler(std::vector<std::string> const& args) : rawArgs(args) {
-        addPredefinedoptions();
+        addPredefinedOptions();
     }
 
     auto add(Option const& option) {
@@ -191,11 +192,6 @@ public:
         switch(totalOption) {
             case ReservedOptions::VERBOSE_ID:
                 std::cout << "Verbose mode is enabled." << std::endl;
-
-                [[fallthrough]];
-            case ReservedOptions::QUIT_ID:
-                std::cout << "No option to execute." << std::endl;
-                exit(0);
                 break;
 
             case ReservedOptions::HELP_ID:
@@ -203,6 +199,12 @@ public:
                 break;
 
             default:
+
+                std::cout << "Filtered Args: ";
+                for(auto arg: getFilteredArgs()) {
+                    std::cout << arg << std::endl;
+                }
+
                 executeInOrder();
                 break;
         }
