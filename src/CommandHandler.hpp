@@ -8,6 +8,7 @@
 #include "Command.hpp"
 #include "ReservedCommands.hpp"
 #include <iostream>
+#include <ranges>
 #include <vector>
 
 
@@ -50,11 +51,34 @@ private:
         });
 
         return rawCommands;
-        }
+    }
 
+    /// Check if the command is a combined quick command like -hv or -Vvh
+    auto isCombinedQuickCommand(std::string_view command) -> bool {
+        bool dontFoundDoubleDash = command.find("--");
+        bool moreThanTwoChars = std::ranges::size(command) > 2;
+        return dontFoundDoubleDash && moreThanTwoChars;
+    }
 
     auto getTotalCommand() {
-        for(auto const& rawCommand: getRawCommands()) {
+        /// Handle combined quick commands like -hv
+        const auto rawCommands = getRawCommands();
+
+        for(auto const& rawCommand: rawCommands) {
+            //std::cout << "Raw Command: " << rawCommand << std::endl;
+            if(isCombinedQuickCommand(rawCommand)) {
+                // if(isVerbose) {
+                //  std::cout << "Combined quick command: " << rawCommand << std::endl;
+                // }
+                for(auto const& symbol: rawCommand) {
+                    for(auto const& cmd: commands) {
+                        if(symbol == cmd.quickName[1]) {
+                            this->totalCommand = this->totalCommand + cmd.id;
+                        }
+                    }
+                }
+            }
+
             for(auto const& cmd: commands) {
                 if(rawCommand == cmd.verboseName || rawCommand == cmd.quickName) {
                     this->totalCommand = this->totalCommand + cmd.id;
@@ -64,7 +88,6 @@ private:
     }
 
     auto showHelp([[maybe_unused]] std::vector<std::string> const& args) {
-
         // sort commands by cmd.quickName case-insensitive
         std::sort(commands.begin(), commands.end(), [](auto const& a, auto const& b) {
             return std::lexicographical_compare(a.quickName.begin(), a.quickName.end(), b.quickName.begin(), b.quickName.end(), [](char a, char b) {
@@ -75,13 +98,14 @@ private:
         if(totalCommand != ReservedCommands::HELP_ID) {
             /// Remove all commands that are not in the totalCommand
             commands.erase(std::remove_if(commands.begin(), commands.end(), [this](auto const& cmd) {
-                return !(cmd.id & this->totalCommand);
-            }), commands.end());
+                               return !(cmd.id & this->totalCommand);
+                           }),
+                           commands.end());
         }
 
 
         const auto largestVerboseName = std::ranges::max_element(commands, {}, [](auto const& cmd) {
-        return cmd.verboseName.size();
+            return cmd.verboseName.size();
         });
 
         const std::string verboseName = "Verbose Name";
@@ -92,23 +116,23 @@ private:
 
         // Ausgabe der Tabelle
         std::cout
-        << verboseName
-        << std::string(largestVerboseNameSize - verboseName.size(), ' ')
-        << " | "
-        << quickName
-        << " | "
-        << description
-        << std::endl;
+                << verboseName
+                << std::string(largestVerboseNameSize - verboseName.size(), ' ')
+                << " | "
+                << quickName
+                << " | "
+                << description
+                << std::endl;
 
-        for (auto const& cmd : commands) {
-        std::cout
-        << cmd.verboseName
-        << std::string(largestVerboseNameSize - cmd.verboseName.size(), ' ')
-        << " | "
-        << cmd.quickName
-        << std::string(quickName.size() - cmd.quickName.size(), ' ')
-        << " | "
-        << cmd.description << std::endl;
+        for(auto const& cmd: commands) {
+            std::cout
+                    << cmd.verboseName
+                    << std::string(largestVerboseNameSize - cmd.verboseName.size(), ' ')
+                    << " | "
+                    << cmd.quickName
+                    << std::string(quickName.size() - cmd.quickName.size(), ' ')
+                    << " | "
+                    << cmd.description << std::endl;
         }
     }
 
@@ -128,8 +152,7 @@ private:
                 .verboseName = "--help",
                 .quickName = "-h",
                 .description = "Gives you a helpful overview about the commands.",
-                .function = std::bind_front(&CommandHandler::showHelp, this)
-        };
+                .function = std::bind_front(&CommandHandler::showHelp, this)};
         commands.push_back(helpCommand);
 
         const Command versionCommand{
@@ -156,7 +179,6 @@ private:
 public:
     explicit CommandHandler(std::vector<std::string> const& args) : rawArgs(args) {
         addPredefinedCommands();
-
     }
 
     auto add(Command const& command) {
@@ -170,7 +192,7 @@ public:
             case ReservedCommands::VERBOSE_ID:
                 std::cout << "Verbose mode is enabled." << std::endl;
 
-            [[fallthrough]]
+                [[fallthrough]];
             case ReservedCommands::QUIT_ID:
                 std::cout << "No command to execute." << std::endl;
                 exit(0);
@@ -185,6 +207,4 @@ public:
                 break;
         }
     }
-
-
 };

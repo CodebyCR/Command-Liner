@@ -46,16 +46,16 @@ auto main(int argc, char* argv[]) -> int {
 
 The following commands are defined by default.
 
-| Command    | Option            | Requiered Arguments                         |
-|:----------:|:------------------|:-------------------------------------------:|
-| Quit       | `--quit`,    `-q` |         —                                   |
-| Version    | `--version`, `-v` |         —                                   |
-| Verbose    | `--verbose`, `-V` |                                             |
-| Help       | `--help`,    `-h` | Used the description off all given commands |
-|    |  |                                             |
-|    |  |                                             |
-|    |  |                                             |
-|    |  |                                             |
+| Command | Option            |             Requiered Arguments             |
+| :-----: | :---------------- | :-----------------------------------------: |
+|  Quit   | `--quit`, `-q`    |                      —                      |
+| Version | `--version`, `-v` |                      —                      |
+| Verbose | `--verbose`, `-V` |                                             |
+|  Help   | `--help`, `-h`    | Used the description off all given commands |
+|         |                   |                                             |
+|         |                   |                                             |
+|         |                   |                                             |
+|         |                   |                                             |
 
 ## Multi & combind option execution
 
@@ -71,11 +71,4 @@ The list of arguments is untouched of any restrictions.
 
 ## Alias Commands
 
-You can define alias command for an existing one to improve the user experience of your CLI Tool
-
-
-
-
-
-
-
+You can define alias command for an existing one to improve the user experience of your CLI Tool.
