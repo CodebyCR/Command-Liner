@@ -15,6 +15,7 @@ auto main(int argc, char** argv) -> int {
             .function = [](std::vector<std::string> const& args) {
                 std::cout << "This option also quit the program." << std::endl;
                 exit(0);
+                return "Exit";
             }};
 
 
@@ -24,7 +25,7 @@ auto main(int argc, char** argv) -> int {
             .quickName = "-m",
             .description = "Gives you the manual of the program.",
             .function = [](std::vector<std::string> const& args) {
-                std::cout << "This is a manual option." << std::endl;
+                return "This is a manual option.\n";
             }};
 
     // Program arguments as a vector of strings.

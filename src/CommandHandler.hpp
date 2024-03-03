@@ -10,6 +10,7 @@
 #include <iostream>
 #include <ranges>
 #include <vector>
+#include <sstream>
 
 
 class CommandHandler {
@@ -37,7 +38,7 @@ private:
 
         for(auto const& opt: options) {
             if(opt.id & totalOption) {
-                opt.function(filteredArgs);
+                std::cout << opt.function(filteredArgs) << std::endl;
             }
         }
     }
@@ -88,7 +89,7 @@ private:
         }
     }
 
-    auto showHelp([[maybe_unused]] std::vector<std::string> const& args) {
+    auto showHelp([[maybe_unused]] std::vector<std::string> const& args) -> std::string {
         // sort options by cmd.quickName case-insensitive
         std::sort(options.begin(), options.end(), [](auto const& a, auto const& b) {
             return std::lexicographical_compare(a.quickName.begin(), a.quickName.end(), b.quickName.begin(), b.quickName.end(), [](char a, char b) {
@@ -116,7 +117,8 @@ private:
 
 
         // Ausgabe der Tabelle
-        std::cout
+        std::stringstream ss;
+        ss
                 << verboseName
                 << std::string(largestVerboseNameSize - verboseName.size(), ' ')
                 << " | "
@@ -126,15 +128,17 @@ private:
                 << std::endl;
 
         for(auto const& opt: options) {
-            std::cout
-                    << opt.verboseName
+            ss
+                    << opt.verboseName.data()
                     << std::string(largestVerboseNameSize - opt.verboseName.size(), ' ')
                     << " | "
-                    << opt.quickName
+                    << opt.quickName.data()
                     << std::string(quickName.size() - opt.quickName.size(), ' ')
                     << " | "
-                    << opt.description << std::endl;
+                    << opt.description.data() << std::endl;
         }
+
+        return ss.str();
     }
 
     auto addPredefinedOptions() -> void {
@@ -145,6 +149,8 @@ private:
                 .description = "Exits the program.",
                 .function = []([[maybe_unused]] std::vector<std::string> const& args) {
                     exit(0);
+                    [[no_return]]
+                    return "Exit";
                 }};
         options.push_back(quitOption);
 
@@ -162,7 +168,7 @@ private:
                 .quickName = "-v",
                 .description = "Gives you the version of the program.",
                 .function = []([[maybe_unused]] std::vector<std::string> const& args) {
-                    std::cout << "This is a version option." << std::endl;
+                    return "This is a version option.\n";
                 }};
         options.push_back(versionOption);
 
@@ -173,6 +179,7 @@ private:
                 .description = "Enabled more information if you use a option.",
                 .function = [this]([[maybe_unused]] std::vector<std::string> const& args) {
                     this->isVerbose = true;
+                    return "Verbose mode is enabled.";
                 }};
         options.push_back(verboseOption);
     }
@@ -200,10 +207,10 @@ public:
 
             default:
 
-                std::cout << "Filtered Args: ";
-                for(auto arg: getFilteredArgs()) {
-                    std::cout << arg << std::endl;
-                }
+//                std::cout << "Filtered Args: ";
+//                for(auto arg: getFilteredArgs()) {
+//                    std::cout << arg << std::endl;
+//                }
 
                 executeInOrder();
                 break;

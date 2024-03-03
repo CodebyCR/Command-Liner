@@ -12,5 +12,5 @@ struct Option {
     std::string_view verboseName;
     std::string_view quickName;
     std::string_view description;
-    std::function<void(std::vector<std::string>)> function;
+    std::function<std::string(std::vector<std::string>)> function;
 };
